@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+<link href="style.css" rel="stylesheet" type="text/css">
+ <script src="myscripts.js"></script>
+</head>
+<h2>Lets build stuff!</h2>
+<p>Please fill following registration form to participate in Summer Dance practice</p>
+<p><span class="error">* required field.</span></p>
+
+<form method="post" action="index.php">
+  <fieldset >
+
+Full name:<input type="text" name="name" maxlength="20">
+<span class="error">* <?php echo $nameErr;?></span>
+<span class="error">* <?php echo "test debug error";?> </span>
+<br><br>
+<p>Address:</p><textarea name="address" rows="4" cols="50" maxlength="100"></textarea>
+<span class="error">* <?php echo $addressErr;?></span>
+<br><br>
+E-mail: <input type="text" name="email" >
+<span class="error">* <?php echo $emailErr;?></span><br><br>
+Mobile:<input type="number" name="mobile" length=10 >
+<span class="error">* <?php echo $mobileErr;?></span><br><br>
+Account number:<input type="number" name="acnumber">
+<span class="error">* <?php echo $acnumberErr;?></span><br><br>
+Password: <input type="password" name="passwd" id="myInput">
+<span class="error">* <?php echo $passwdErr;?></span><br><br>
+<input type="checkbox" onclick="myFunction()">Show Password<br><br>
+<input type="submit" name="submit" value="Submit">
+<input type="reset" value="Clear">
+</fieldset >
+
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+$nameErr = $emailErr = $mobileErr = $acnumberErr = $passwdErr = "";
+$name = $email = $mobile = $acnumber = $passwd = $address = "";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+      $nameErr = "Only letters and white space allowed";
+    }
+  }
+
+  if (empty($_POST["mobile"])) {
+    $mobileErr = "Mobile number  is required";
+  } else {
+    $mobile = test_input($_POST["mobile"]);
+
+    if (!preg_match("/^[0-9]*$/",$mobile)) {
+      $mobileErr = "only numbers are allowed";
+    }
+    if(strlen($mobile !=10)){
+      $mobileErr="mobile number must be 10 digit long";
+    }
+  }
+
+  if (empty($_POST["acnumber"])) {
+    $acnumberErr = "account  number  is required";
+  } else {
+    $acnumber = test_input($_POST["acnumber"]);
+
+    if (!preg_match("/^[0-9]*$/",$mobile)) {
+      $acnumberErr = "only numbers are allowed";
+    }
+    if(strlen($acnumber !=5)){
+      $acnumberErr="Account number must be 5 digit long";
+    }
+  }
+
+if (empty($_POST["email"])) {
+  $emailErr = "Email is required";
+} else {
+  $email = test_input($_POST["email"]);
+  // check if e-mail address is well-formed
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $emailErr = "Invalid email format";
+  }
+}
+
+if (empty($_POST["address"])) {
+  $address = "";
+} else {
+  $address = test_input($_POST["address"]);
+}
+if (empty($_POST["passwd"])) {
+  $passwdErr = "password is required";
+}
+else {
+  if (!preg_match("/^[a-zA-Z0-9]{,5}*$/",$passwd)) {
+    $passwdErr = "Only alphanumeric characters are allowed";
+  }
+}
+
+
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+ ?>
+
+
+ <?php
+echo "<h2>Your Input:</h2>";
+echo $name;
+echo "<br>";
+echo $email;
+echo "<br>";
+echo $address;
+echo "<br>";
+echo $mobile;
+echo "<br>";
+echo $acnumber;
+echo "<br>";
+?>

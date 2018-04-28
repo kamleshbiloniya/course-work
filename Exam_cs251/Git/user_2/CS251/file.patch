@@ -1,0 +1,12 @@
+diff --git a/hello.c b/hello.c
+index 19338fe..d56703d 100644
+--- a/hello.c
++++ b/hello.c
+@@ -4,6 +4,7 @@ void main(){
+   printf("HElloword!\n");
+   printf("This must be a monolithic design\n");
+   microkernel_sendmsg("is more portable");
++  printf("add one line in main\n");
+ }
+ void microkernel_sendmsg(char *a) {
+   printf("microkernel:%s\n",a);
