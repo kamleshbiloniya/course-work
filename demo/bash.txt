@@ -1,0 +1,9 @@
+#!/bin/bash
+# declare STRING variable
+STRING="Hello World"
+#print variable on a screen
+PATH=/bin/sh kamlesh/helllo.c
+echo $STRING
+PATH=/bin/bash /path2
+I don't know what the fuck are going on 
+

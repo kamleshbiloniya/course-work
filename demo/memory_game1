@@ -1,0 +1,121 @@
+#include <iostream>
+#include<stdio.h>
+#include<string.h>
+#include <vector>
+#include <string>
+#include <cctype>
+using namespace std;
+
+ std::vector<string>st;
+
+
+void deletemin(){
+    string new_str=st[st.size()-1];
+  cout<<st[1]<<endl;
+    st.pop_back();
+      
+    int i=1;
+    int left=2;
+    int right=3;
+    st[1]=new_str;
+   int  n=st.size()-1;
+
+    while(left<=n){
+        if(right<=n){
+            if((st[left].compare(st[i])>0) && (st[right].compare(st[i])>0))break;
+
+
+
+            else if(st[i].compare(st[left])>0 && st[right].compare(st[i])>0){
+                string a=st[left];
+                st[left]=st[i];
+                st[i]=a;
+                i=left;
+            }
+            else if(st[i].compare(st[right])>0&& st[left].compare(st[i])>0){
+                string a=st[right];
+                st[right]=st[i];
+                st[i]=a;
+                i=right;
+            }
+            else{
+                if(st[left].compare(st[right])>0){
+                    string a=st[right];
+                st[right]=st[i];
+                st[i]=a;
+                i=right;
+                }
+                else{
+                    string a=st[left];
+                    st[left]=st[i];
+                    st[i]=a;
+                    i=left;
+                }
+            }
+        }
+        else{
+             if(st[left].compare(st[i])>0)break;
+
+
+             else{
+                string a=st[left];
+                st[left]=st[i];
+                st[i]=a;
+                i=left;
+            }
+        }
+
+
+        left=2*i;
+        right=left+1;
+
+
+    }
+}
+
+void sort(){
+
+    //st.push_back(s);
+   int n1=st.size()-1;
+    for(int k=n1; k>1;k/=2){
+        if(st[k/2].compare(st[k])>0){
+            string a=st[k];
+            st[k]=st[k/2];
+            st[k/2]=a;
+        }
+    else break;
+
+    }
+}
+
+int main() {
+long long int n;
+    scanf("%lld",&n);
+    st.push_back("None");
+    for(int i=0; i<n; i++){
+    string s1;
+
+    cin>>s1;
+        if(s1[0]==108){ //learn
+            cin>>s1;
+            st.push_back(s1);
+            sort();
+            
+        }
+        else if (s1[0]==102){//forget
+            deletemin();
+        }
+        else{                     //report
+         cout<<st[1]<<endl;
+        }
+    // cout<<"status: ";
+
+    // for(int i=1; i<st.size()-1; i++){
+    //     cout<<st[i]<<" ";
+    // }
+     
+
+    }
+
+	return 0;
+}
